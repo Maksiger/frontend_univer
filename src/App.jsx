@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import "./App.css";
 
-const API = import.meta.env.VITE_API_URL;
+const API = import.meta.env.VITE_API_URL || "http://localhost:8081";
 
 const initialLoginData = { username: "", password: "" };
 const initialAdminUserForm = {
@@ -600,37 +600,35 @@ function App() {
     return () => document.removeEventListener("fullscreenchange", handleFullscreenChange);
   }, []);
 
-async function fetchJson(url, options = {}) {
-  const response = await fetch(url, {
-    ...options,
-    headers: {
-      "ngrok-skip-browser-warning": "true",
-      ...(options.headers || {}),
-    },
-  });
-
-  let data = null;
-  const contentType = response.headers.get("content-type") || "";
-
-  if (contentType.includes("application/json")) {
-    data = await response.json();
-  } else if (!contentType.includes("text/csv")) {
-    const text = await response.text();
-    if (text) {
-      try {
-        data = JSON.parse(text);
-      } catch {
-        data = { message: text };
+  async function fetchJson(url, options = {}) {
+    const response = await fetch(url, {
+      ...options,
+      headers: {
+        "ngrok-skip-browser-warning": "true",
+        ...(options.headers || {}),
+      },
+    });
+    let data = null;
+    const contentType = response.headers.get("content-type") || "";
+    if (contentType.includes("application/json")) {
+      data = await response.json();
+    } else if (!contentType.includes("text/csv")) {
+      const text = await response.text();
+      if (text) {
+        try {
+          data = JSON.parse(text);
+        } catch {
+          data = { message: text };
+        }
       }
     }
-  }
 
-  if (!response.ok) {
-    throw new Error(data?.message || `HTTP ${response.status}`);
-  }
+    if (!response.ok) {
+      throw new Error(data?.message || `HTTP ${response.status}`);
+    }
 
-  return data;
-}
+    return data;
+  }
 
   async function loadSqlObjects(type = selectedSqlObjectType) {
     if (user?.roleName !== "Admin") return;
