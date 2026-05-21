@@ -3851,7 +3851,7 @@ textarea {
     min-width: 64px !important;
   }
 }
-/* ================= MOBILE FIX ================= */
+/* ================= FINAL MOBILE ADAPTATION ================= */
 
 @media (max-width: 760px) {
   body {
@@ -3859,8 +3859,8 @@ textarea {
   }
 
   .dashboard-layout {
-    display: block;
-    padding: 10px;
+    display: block !important;
+    padding: 8px !important;
   }
 
   .main-area {
@@ -3869,196 +3869,186 @@ textarea {
   }
 
   .topbar {
-    padding: 16px;
-    border-radius: 24px;
-    margin-bottom: 12px;
+    padding: 14px !important;
+    border-radius: 22px !important;
+    margin-bottom: 10px !important;
   }
 
   .breadcrumbs {
-    font-size: 12px;
-    margin-bottom: 6px;
+    font-size: 12px !important;
   }
 
   .welcome-title {
-    font-size: 34px !important;
-    line-height: 1.05;
-    letter-spacing: -0.04em;
-    margin-bottom: 10px;
+    font-size: 30px !important;
+    line-height: 1.05 !important;
+    letter-spacing: -0.04em !important;
   }
 
   .role-badge {
-    padding: 6px 10px;
-    font-size: 13px;
+    font-size: 12px !important;
+    padding: 6px 10px !important;
   }
 
   .topbar-actions {
-    display: grid;
-    grid-template-columns: 52px 52px 1fr;
-    gap: 10px;
+    display: grid !important;
+    grid-template-columns: 48px 48px 1fr;
+    gap: 8px;
     width: 100%;
-    margin-top: 12px;
   }
 
   .ghost-btn {
-    width: 52px;
-    height: 52px;
-    border-radius: 18px;
+    width: 48px !important;
+    height: 48px !important;
+    border-radius: 16px !important;
   }
 
   .logout-btn {
-    width: 100%;
-    min-height: 52px;
-    border-radius: 18px;
-    font-size: 16px;
+    width: 100% !important;
+    min-height: 48px !important;
+    border-radius: 16px !important;
+    font-size: 16px !important;
   }
 
   .panel,
   .edit-panel {
-    padding: 16px;
-    border-radius: 24px;
-    margin-bottom: 12px;
+    padding: 14px !important;
+    border-radius: 22px !important;
+    margin-bottom: 10px !important;
   }
 
   .panel-header {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 8px;
+    flex-direction: column !important;
+    align-items: flex-start !important;
   }
 
   .panel-header h3,
   .panel h2 {
-    font-size: 24px;
-    line-height: 1.15;
+    font-size: 22px !important;
+    line-height: 1.15 !important;
   }
 
   .muted-text {
-    font-size: 15px;
-    line-height: 1.4;
+    font-size: 14px !important;
+    line-height: 1.4 !important;
   }
 
   .news-grid,
   .quick-links-grid,
+  .dashboard-grid,
   .mini-nav-grid,
-  .occupancy-summary-grid,
-  .dashboard-grid {
+  .occupancy-summary-grid {
     grid-template-columns: 1fr !important;
-    gap: 12px;
+    gap: 10px !important;
   }
 
   .news-card {
-    padding: 16px;
-    min-height: auto;
-    border-radius: 22px;
+    padding: 14px !important;
+    min-height: auto !important;
+    border-radius: 20px !important;
   }
 
   .news-card::after {
-    width: 90px;
-    height: 90px;
-    right: -24px;
-    top: -24px;
+    width: 76px !important;
+    height: 76px !important;
+    right: -22px !important;
+    top: -22px !important;
   }
 
   .news-date {
-    font-size: 13px;
-    min-height: 30px;
-    padding: 6px 10px;
+    font-size: 12px !important;
+    min-height: 28px !important;
+    padding: 5px 10px !important;
   }
 
   .news-card h3 {
-    font-size: 22px;
-    line-height: 1.18;
-    margin: 14px 0 8px;
+    font-size: 21px !important;
+    line-height: 1.18 !important;
+    margin: 12px 0 6px !important;
   }
 
   .news-card p {
-    font-size: 15px;
-    line-height: 1.45;
+    font-size: 14px !important;
+    line-height: 1.45 !important;
   }
 
   .dictionary-top-tabs,
   .dictionary-toolbar,
-  .occupancy-toolbar {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 10px;
+  .occupancy-toolbar,
+  .filters-bar,
+  .admin-actions,
+  .settings-actions {
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+    gap: 9px !important;
   }
 
   .dictionary-tab {
-    width: 100%;
-    min-height: 58px !important;
-    padding: 14px 16px !important;
-    border-radius: 20px;
-    font-size: 16px;
+    width: 100% !important;
+    min-height: 54px !important;
+    padding: 12px 14px !important;
+    border-radius: 18px !important;
+    font-size: 15px !important;
   }
 
   .lesson-card {
-    padding: 16px;
-    border-radius: 22px;
+    padding: 14px !important;
+    border-radius: 20px !important;
   }
 
   .lesson-card-top,
   .lesson-actions {
-    flex-direction: column;
+    flex-direction: column !important;
   }
 
   .lesson-subject {
-    font-size: 21px;
+    font-size: 19px !important;
   }
 
   .lesson-details {
     grid-template-columns: 1fr !important;
-    gap: 8px;
-  }
-
-  .filters-bar,
-  .admin-actions,
-  .settings-actions {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 10px;
   }
 
   input,
   select,
   button {
-    font-size: 16px;
+    font-size: 16px !important;
   }
 
   .table-box {
-    overflow-x: auto;
+    overflow-x: auto !important;
   }
 
   .table-head,
   .table-row {
-    min-width: 720px !important;
+    min-width: 700px !important;
   }
 
   .iphone-bottom-nav {
-    width: calc(100% - 20px);
-    bottom: 10px;
-    padding: 7px;
-    border-radius: 24px;
+    width: calc(100% - 16px) !important;
+    bottom: 8px !important;
+    padding: 6px !important;
+    border-radius: 22px !important;
   }
 
   .iphone-bottom-nav button {
-    min-height: 50px;
-    border-radius: 18px;
+    min-height: 48px !important;
+    border-radius: 16px !important;
   }
 
   .iphone-bottom-nav span {
-    font-size: 18px;
+    font-size: 17px !important;
   }
 
   .iphone-bottom-nav small {
-    font-size: 9px;
+    font-size: 9px !important;
   }
 
   .iphone-fab {
-    width: 54px;
-    height: 54px;
-    right: 14px;
-    bottom: 86px;
-    border-radius: 20px;
-    font-size: 30px;
+    width: 52px !important;
+    height: 52px !important;
+    right: 12px !important;
+    bottom: 84px !important;
+    border-radius: 18px !important;
+    font-size: 28px !important;
   }
 }
