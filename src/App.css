@@ -4039,8 +4039,8 @@ textarea {
     font-size: 17px !important;
   }
 
-  .iphone-bottom-nav small {nt;
-    font-size: 9px !importa
+  .iphone-bottom-nav small {
+    font-size: 9px !important;
   }
 
   .iphone-fab {
@@ -4052,15 +4052,11 @@ textarea {
     font-size: 28px !important;
   }
 }
+
 /* =========================================================
-   MOBILE COMFORT PATCH
-   Добавить этот файл В КОНЕЦ src/App.css
-   (или импортировать после него: @import url("./mobile-fixes.css");)
-   Цель: реальные проблемы на телефоне, которые старые патчи
-   не покрывали.
+   MOBILE COMFORT PATCH (added on top of the file above)
    ========================================================= */
 
-/* 1) Safe-area отступы для iPhone (чёлка сверху, home-indicator снизу) */
 .topbar {
   padding-top: max(16px, env(safe-area-inset-top)) !important;
 }
@@ -4074,14 +4070,11 @@ textarea {
   bottom: calc(86px + env(safe-area-inset-bottom)) !important;
 }
 
-/* 2) Не даём странице "скакать" при овербаунсе и случайных
-      горизонтальных свайпах */
 html, body {
   overscroll-behavior-y: contain;
   overscroll-behavior-x: none;
 }
 
-/* 3) Любая кнопка/ссылка — минимум 44x44, чтобы попадать пальцем */
 @media (max-width: 900px) {
   button,
   .menu-item,
@@ -4097,12 +4090,6 @@ html, body {
   }
 }
 
-/* 4) ГЛАВНЫЙ БАГ: простые двухколоночные таблицы (Кафедры, Предметы,
-      Типы занятий, Пары) заданы через inline style
-      gridTemplateColumns и НЕ попадали под старые правила
-      ".four-col/.five-col/.six-col", поэтому на телефоне
-      оставались узкими таблицами с горизонтальным скроллом
-      вместо карточек. Разворачиваем в карточки принудительно. */
 @media (max-width: 640px) {
   .table-row[style],
   .table-head[style] {
@@ -4114,7 +4101,7 @@ html, body {
   }
 
   .table-head[style] {
-    display: none !important; /* заголовок таблицы не нужен в карточном виде */
+    display: none !important;
   }
 
   .table-row[style] {
@@ -4135,8 +4122,6 @@ html, body {
   }
 }
 
-/* 5) Popover уведомлений/настроек не должен вылезать за экран
-      и должен быть достаточно ниже topbar на маленьких экранах */
 @media (max-width: 760px) {
   .notification-center-panel,
   .top-popover {
@@ -4144,8 +4129,6 @@ html, body {
   }
 }
 
-/* 6) Модалка добавления занятия — гарантированно влезает и скроллится
-      целиком, даже на низких экранах (альбомная ориентация) */
 @media (max-width: 900px) {
   .mac-modal-backdrop {
     align-items: flex-start !important;
@@ -4157,7 +4140,6 @@ html, body {
   }
 }
 
-/* 7) SQL-объекты и результат SQL — легче тапать одной рукой */
 @media (max-width: 760px) {
   .sql-object-row {
     padding: 14px !important;
@@ -4168,8 +4150,6 @@ html, body {
   }
 }
 
-/* 8) Убираем случайный горизонтальный скролл всей страницы,
-      если где-то остался элемент шире экрана */
 @media (max-width: 900px) {
   .dashboard-layout,
   .main-area {
