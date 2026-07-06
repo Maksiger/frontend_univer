@@ -4039,8 +4039,8 @@ textarea {
     font-size: 17px !important;
   }
 
-  .iphone-bottom-nav small {
-    font-size: 9px !important;
+  .iphone-bottom-nav small {nt;
+    font-size: 9px !importa
   }
 
   .iphone-fab {
@@ -4050,5 +4050,129 @@ textarea {
     bottom: 84px !important;
     border-radius: 18px !important;
     font-size: 28px !important;
+  }
+}
+/* =========================================================
+   MOBILE COMFORT PATCH
+   Добавить этот файл В КОНЕЦ src/App.css
+   (или импортировать после него: @import url("./mobile-fixes.css");)
+   Цель: реальные проблемы на телефоне, которые старые патчи
+   не покрывали.
+   ========================================================= */
+
+/* 1) Safe-area отступы для iPhone (чёлка сверху, home-indicator снизу) */
+.topbar {
+  padding-top: max(16px, env(safe-area-inset-top)) !important;
+}
+
+.iphone-bottom-nav {
+  padding-bottom: max(7px, env(safe-area-inset-bottom)) !important;
+  bottom: max(8px, env(safe-area-inset-bottom)) !important;
+}
+
+.iphone-fab {
+  bottom: calc(86px + env(safe-area-inset-bottom)) !important;
+}
+
+/* 2) Не даём странице "скакать" при овербаунсе и случайных
+      горизонтальных свайпах */
+html, body {
+  overscroll-behavior-y: contain;
+  overscroll-behavior-x: none;
+}
+
+/* 3) Любая кнопка/ссылка — минимум 44x44, чтобы попадать пальцем */
+@media (max-width: 900px) {
+  button,
+  .menu-item,
+  .dictionary-tab,
+  .grade-chip,
+  .ghost-btn,
+  .secondary-btn,
+  .main-btn,
+  .danger-btn,
+  .assignment-card,
+  .sql-object-row {
+    min-height: 44px;
+  }
+}
+
+/* 4) ГЛАВНЫЙ БАГ: простые двухколоночные таблицы (Кафедры, Предметы,
+      Типы занятий, Пары) заданы через inline style
+      gridTemplateColumns и НЕ попадали под старые правила
+      ".four-col/.five-col/.six-col", поэтому на телефоне
+      оставались узкими таблицами с горизонтальным скроллом
+      вместо карточек. Разворачиваем в карточки принудительно. */
+@media (max-width: 640px) {
+  .table-row[style],
+  .table-head[style] {
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+    min-width: 0 !important;
+    width: 100% !important;
+    gap: 6px !important;
+  }
+
+  .table-head[style] {
+    display: none !important; /* заголовок таблицы не нужен в карточном виде */
+  }
+
+  .table-row[style] {
+    padding: 13px !important;
+    border-radius: 18px !important;
+  }
+
+  .table-row[style] > div {
+    width: 100%;
+    overflow-wrap: anywhere;
+    padding-bottom: 5px;
+    border-bottom: 1px solid rgba(120, 120, 128, 0.16);
+  }
+
+  .table-row[style] > div:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+  }
+}
+
+/* 5) Popover уведомлений/настроек не должен вылезать за экран
+      и должен быть достаточно ниже topbar на маленьких экранах */
+@media (max-width: 760px) {
+  .notification-center-panel,
+  .top-popover {
+    max-height: calc(100dvh - 150px) !important;
+  }
+}
+
+/* 6) Модалка добавления занятия — гарантированно влезает и скроллится
+      целиком, даже на низких экранах (альбомная ориентация) */
+@media (max-width: 900px) {
+  .mac-modal-backdrop {
+    align-items: flex-start !important;
+    padding-top: max(16px, env(safe-area-inset-top)) !important;
+  }
+
+  .mac-modal-window {
+    max-height: calc(100dvh - 32px) !important;
+  }
+}
+
+/* 7) SQL-объекты и результат SQL — легче тапать одной рукой */
+@media (max-width: 760px) {
+  .sql-object-row {
+    padding: 14px !important;
+  }
+
+  .sql-command-actions button {
+    min-height: 48px !important;
+  }
+}
+
+/* 8) Убираем случайный горизонтальный скролл всей страницы,
+      если где-то остался элемент шире экрана */
+@media (max-width: 900px) {
+  .dashboard-layout,
+  .main-area {
+    overflow-x: hidden;
   }
 }
