@@ -4156,3 +4156,146 @@ html, body {
     overflow-x: hidden;
   }
 }
+
+/* =========================================================
+   MOBILE PERFORMANCE PATCH
+   Причина лагов/сломанного свайпа на телефоне:
+   - десятки наложенных backdrop-filter: blur(...) слоёв
+   - background-attachment: fixed + бесконечная анимация
+     градиента на <body> (iphoneAurora)
+   Это перегружает GPU/композитор мобильного браузера и
+   блокирует основной поток во время скролла.
+   Ниже — отключаем самое дорогое именно на мобильных
+   ширинах, не трогая десктопную версию.
+   ========================================================= */
+
+@media (max-width: 900px) {
+  /* 1) Убираем анимированный fixed-фон — главный виновник
+        лагов при скролле/свайпе на телефоне */
+  body {
+    background-attachment: scroll !important;
+    animation: none !important;
+  }
+
+  /* 2) Заменяем дорогой blur() на обычный полупрозрачный фон
+        без размытия — визуально почти незаметно, но
+        на порядок дешевле по GPU */
+  .auth-shell,
+  .auth-card,
+  .panel,
+  .sidebar,
+  .top-popover,
+  .edit-panel,
+  .topbar,
+  .ghost-btn,
+  .logout-btn,
+  .main-btn,
+  .secondary-btn,
+  .danger-btn,
+  .dictionary-tab,
+  .quick-link-card,
+  .mini-nav-card,
+  .mac-modal-window,
+  .notification-center-panel,
+  .mac-context-menu,
+  .iphone-bottom-nav,
+  .iphone-fab,
+  .simple-item,
+  .profile-row,
+  .settings-row,
+  .mini-schedule-item,
+  .lesson-card,
+  .stat-box,
+  .table-head,
+  .table-row,
+  .assignment-card,
+  .student-grade-card,
+  .news-card,
+  .backup-command-card {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+  }
+
+  body[data-theme="dark"] .iphone-bottom-nav {
+    background: rgba(16, 22, 35, 0.92) !important;
+  }
+
+  .mac-modal-backdrop {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    background: rgba(0, 0, 0, 0.55) !important;
+  }
+
+  /* 3) will-change создаёт лишние GPU-слои на каждый элемент —
+        на телефоне это чаще вредит памяти/производительности,
+        чем помогает (эффект нужен только для hover на десктопе) */
+  body[data-theme="dark"] .panel,
+  .quick-link-card,
+  .mini-nav-card,
+  .status-card,
+  .lesson-card,
+  .simple-item,
+  .profile-row,
+  .settings-row,
+  .dictionary-tab {
+    will-change: auto !important;
+  }
+
+  /* 4) Отключаем декоративные бесконечные/множественные
+        анимации, которые не несут смысла на телефоне и
+        грузят поток при большом числе строк таблиц */
+  .table-row {
+    animation: none !important;
+  }
+
+  .top-popover .simple-item::before {
+    animation: none !important;
+  }
+
+  .dashboard-layout {
+    animation: none !important;
+  }
+
+  /* 5) Убираем hover-переходы transform/shadow — на touch-экранах
+        они всё равно не нужны и лишь создают лишнюю работу
+        при тапах (эмуляция :hover/:active) */
+  .panel,
+  .quick-link-card,
+  .mini-nav-card,
+  .lesson-card,
+  .status-card {
+    transition: none !important;
+  }
+
+  .panel:hover,
+  .quick-link-card:hover,
+  .mini-nav-card:hover,
+  .lesson-card:hover,
+  .status-card:hover,
+  .student-grade-card:hover,
+  .news-card:hover {
+    transform: none !important;
+    box-shadow: none !important;
+  }
+
+  button::after,
+  .menu-item::after,
+  .dictionary-tab::after {
+    display: none !important;
+  }
+}
+
+/* 6) На всякий случай явно разрешаем нативный свайп-скролл
+      везде, где раньше могли стоять блокирующие правила */
+html, body, .main-area, .table-box, .sql-object-list {
+  touch-action: pan-y pinch-zoom;
+}
+
+.table-box,
+.sql-result-table-wrap,
+.sql-object-list,
+.notification-center-panel,
+.mac-modal-window {
+  touch-action: pan-x pan-y;
+  -webkit-overflow-scrolling: touch;
+}
