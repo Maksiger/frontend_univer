@@ -4285,17 +4285,3 @@ html, body {
   }
 }
 
-/* 6) На всякий случай явно разрешаем нативный свайп-скролл
-      везде, где раньше могли стоять блокирующие правила */
-html, body, .main-area, .table-box, .sql-object-list {
-  touch-action: pan-y pinch-zoom;
-}
-
-.table-box,
-.sql-result-table-wrap,
-.sql-object-list,
-.notification-center-panel,
-.mac-modal-window {
-  touch-action: pan-x pan-y;
-  -webkit-overflow-scrolling: touch;
-}
